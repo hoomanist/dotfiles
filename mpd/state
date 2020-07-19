@@ -1,0 +1,21 @@
+sw_volume: 88
+audio_device_state:1:my_fifo
+audio_device_state:1:pulse audio
+state: pause
+current: 5
+time: 119.182000
+random: 0
+repeat: 0
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:12. Steven Price - Aningaaq (128).mp3
+1:13. Marc Streitenfeld - Earth (128).mp3
+2:3624_Shajarian-زبان-آتش-استاد-شجریان.mp3
+3:28. Ryan Amon - Elysium (128).mp3
+4:Inception (Music From The Motion Picture) CD 1 TRACK 12 (128.mp3
+5:Interstellar (Original Motion Picture Soundtrack) (Deluxe Ve.mp3
+playlist_end
