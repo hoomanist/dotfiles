@@ -10,7 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $term xfce4-terminal
+set $term kitty 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -25,6 +25,23 @@ font pango:monospace 8
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+set $nord0   #2E3440
+set $nord1   #3B4252
+set $nord2   #434C5E
+set $nord3   #4C566A
+set $nord4   #D8DEE9
+set $nord5   #E5E9F0
+set $nord6   #ECEFF4
+set $nord7   #8FBCBB
+set $nord8   #88C0D0
+set $nord9   #81A1C1
+set $nord10  #5E81AC
+set $nord11  #BF616A
+set $nord12  #D08770
+set $nord13  #EBCB8B
+set $nord14  #A3BE8C
+set $nord15  #B48EAD
 
 
 # Use pactl to adjust volume in PulseAudio.
@@ -44,7 +61,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -show drun 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -176,21 +193,25 @@ exec_always "setxkbmap -layout us,ir -option 'grp:alt_shift_toggle'"
 bindsym Print exec scrot 'scrot_%Y-%m-%d-%T_$wx$h.png' -e 'mv $f /home/ford/Pictures'
 #filemanager
 bindsym $mod+shift+f exec $term -e ranger
+#music
+
+bindsym $mod+shift+n exec $term -e ncmpcpp 
 
 # no border
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 #gaps 
 gaps outer 5
 gaps inner 8
 
 # wallpaper
-exec_always nitrogen --restore 
+exec_always feh --bg-scale $HOME/wall.png 
 # panel
 exec_always --no-startup-id /home/ford/.config/polybar/launch.sh
 # compositor
-exec_always --no-startup-id picom --config /home/ford/compton.conf
-
-
+exec_always --no-startup-id picom --experimental-backends 
+#nm-applet
+exec_always nm-applet
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-
+# border
+border_radius 8
