@@ -1,0 +1,5 @@
+#!/bin/sh
+
+
+amixer -q sset Master,0 5+ unmute
+notify-send "volume up"

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd ~/Documents/books && ls | find -iname '*.pdf' | rofi -dmenu -l 10 | xargs zathura

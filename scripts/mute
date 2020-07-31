@@ -1,0 +1,4 @@
+#!/bin/sh
+
+amixer -q sset Master,0 toggle
+notify-send "toggle mute"

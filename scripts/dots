@@ -1,0 +1,10 @@
+#!/bin/sh
+
+i3=~/.config/i3/config 
+vim=~/.config/nvim/init.vim
+picom=~/.config/picom/picom.conf
+polybar=~/.config/polybar/config
+
+options="$i3\n$vim\n$picom\n$polybar"
+
+echo -e $options | rofi -dmenu -l 10 | xargs kitty -e nvim
