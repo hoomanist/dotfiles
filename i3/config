@@ -172,13 +172,20 @@ bindsym $mod+shift+n exec $term -e ncmpcpp
 bindsym $mod+b exec $HOME/scripts/pdfs
 # dotfiles
 bindsym $mod+shift+d exec $HOME/scripts/dots
+# shutdown
+bindsym $mod+shift+s exec $HOME/scripts/halt
 
 # no border
 for_window [class="^.*"] border pixel 1
 #gaps 
 gaps outer 5
-gaps inner 8
-
+gaps inner 10
+bindsym $mod+shift+plus  gaps inner current plus 5
+bindsym $mod+shift+minus gaps inner current minus 5
+bindsym $mod+ctrl+plus  gaps outer current plus 5
+bindsym $mod+ctrl+minus gaps outer current minus 5
+bindsym $mod+plus gaps outer current set 5
+bindsym $mod+minus gaps inner current set 10
 # hello there
 exec notify-send "hello there" "general kenobi, you're a bold one"
 # wallpaper
@@ -189,5 +196,8 @@ exec_always --no-startup-id /home/ford/.config/polybar/launch.sh
 exec_always --no-startup-id picom --experimental-backends 
 #nm-applet
 exec_always nm-applet
+
+
+
 # border
-border_radius 10
+border_radius 2
