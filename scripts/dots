@@ -4,7 +4,12 @@ i3=~/.config/i3/config
 vim=~/.config/nvim/init.vim
 picom=~/.config/picom/picom.conf
 polybar=~/.config/polybar/config
+tmux=~/.tmux.conf
+options="$i3\n$vim\n$tmux\n$picom\n$polybar"
 
-options="$i3\n$vim\n$picom\n$polybar"
+adress=$(echo -e $options | rofi -dmenu -l 10 -i -p "dotfiles") 
 
-echo -e $options | rofi -dmenu -l 10 | xargs kitty -e nvim
+echo $adress
+[[ -z $adress ]] && exit
+
+kitty -e nvim $adress

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+answer=$(echo -e "Yes\nNo" | rofi -dmenu -p "you want to halt?" -i) 
+
+[[ $answer == "Yes" ]] && sudo shutdown now

@@ -1,3 +1,6 @@
 #!/bin/sh
 
-cd ~/Documents/books && ls | find -iname '*.pdf' | rofi -dmenu -l 10 | xargs zathura
+book=$(cd ~/Documents/books && ls | find -iname '*.pdf' | rofi -dmenu -l 10 -i -p  "which book?" | xargs realpath)
+
+[[ -z $book ]] && exit
+zathura $book
