@@ -1,34 +1,38 @@
+" plugins
 call plug#begin('~/.vim/plugged')
+Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'preservim/nerdcommenter'
-Plug 'sainnhe/sonokai'
 Plug 'airblade/vim-rooter'
+Plug 'arcticicestudio/nord-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'ajh17/Spacegray.vim'
+Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/nerdtree'
 Plug 'arcticicestudio/nord-vim'
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-surround'
 call plug#end()
 
+" my stuff
 let mapleader = ","
 set encoding=UTF-8
 map <C-n> :NERDTreeToggle<CR>
 :map <Leader>f  :Files<Esc>
 set mouse=a
-:set laststatus=0 ruler
+set laststatus=2 
+set statusline=
 if has('termguicolors')
 	set termguicolors
 endif
-let g:sonokai_style = 'andromeda'
-let g:sonokai_enable_italic = 0
-let g:sonokai_disable_italic_comment = 1
-let g:airline_powerline_fonts = 1
-colorscheme sonokai
-let g:lightline = {}
-let g:lightline.colorscheme = 'sonokai'
+colorscheme Tomorrow-Night
+let g:airline_theme='base16_tomorrow'
+hi Normal guibg=NONE ctermbg=NONE
 set number
-"set hidden
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set hidden
 set nobackup
 set nowritebackup
 set cmdheight=2
@@ -39,9 +43,10 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
-
 set undodir=~/.vimdid
 set undofile
+set laststatus=2
+" COC stuff
 map <leader>t <Plug>(coc-terminal-toggle)<Esc>
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
