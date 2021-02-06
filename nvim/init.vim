@@ -1,8 +1,6 @@
 " plugins
 call plug#begin('~/.vim/plugged')
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'arcticicestudio/nord-vim'
-Plug 'chriskempson/base16-vim'
+Plug 'joshdick/onedark.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'airblade/vim-rooter'
@@ -11,7 +9,6 @@ Plug 'preservim/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
 Plug 'bling/vim-bufferline'
-Plug 'phanviet/vim-monokai-pro'
 Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'prettier/vim-prettier', {
@@ -21,24 +18,31 @@ Plug 'prettier/vim-prettier', {
 Plug 'rhysd/vim-clang-format'
 Plug 'rust-lang/rust.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'arcticicestudio/nord-vim'
+Plug 'chriskempson/base16-vim'
 call plug#end()
-
 " change leader key
 let mapleader = ","
 " display status line
 set laststatus=2
 " line length limit
-set colorcolumn=72
-" status line config
+"set colorcolumn=92
+" indent
+:filetype indent on
+set smartindent
+"status line config
 let g:bufferline_echo = 0
 let g:lightline = {
       \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'bufferline' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'bufferline' ], ['gitintegration'] ],
       \ },
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
-      \'bufferline': '%{bufferline#refresh_status()}%{g:bufferline_status_info.before . g:bufferline_status_info.current . g:bufferline_status_info.after}',
+      \   'bufferline': '%{bufferline#refresh_status()}%{g:bufferline_status_info.before . g:bufferline_status_info.current . g:bufferline_status_info.after}',
+      \   'gitintegration': '%{FugitiveStatusline()}',
       \ },
       \ 'separator':    { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' },
@@ -46,6 +50,19 @@ let g:lightline = {
 " close nerdtree if it is alone
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
   \ b:NERDTree.isTabTree()) | q | endif
+" nerdtree git intgeration
+ let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'✹',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
 " move between buffers
 nnoremap <C-Left> :bprev<CR>
 nnoremap <C-Right> :bnext<CR>
@@ -60,17 +77,32 @@ set encoding=UTF-8
 map <C-n> :NERDTreeToggle<CR>
 "mouse
 set mouse=a
-" colorscheme
-colorscheme nord
-hi Normal guibg=NONE ctermbg=NONE
+" color
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    "let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    "autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white })
+  augroup END
+endif
+
+"hi Comment cterm=italic
+"let g:onedark_hide_endofbuffer=1
+"let g:onedark_terminal_italics=1
+"let g:onedark_termcolors=256
+
+syntax on
+colorscheme base16-tomorrow-night
+" checks if your terminal has 24-bit color support
+if (has("termguicolors"))
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
+endif
 " settings
 set laststatus=2 
 set statusline=
-if has('termguicolors')
-	set termguicolors
-endif
 set number
-set tabstop=2
+set relativenumber
 set shiftwidth=2
 set expandtab
 set hidden
