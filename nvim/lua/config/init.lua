@@ -1,0 +1,7 @@
+require('config.theme')
+require('config.evilline')
+require('config.lsp')
+require('config.telescope')
+require('config.setups')
+require('config.bindings')
+require('config.general')

@@ -9,7 +9,6 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
-  use 'RRethy/nvim-base16'
   use 'xiyaowong/nvim-transparent'
   use 'lukas-reineke/indent-blankline.nvim'
   use {
@@ -19,13 +18,22 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind-nvim'
   use 'hrsh7th/nvim-compe'
+  use 'projekt0n/github-nvim-theme'
   use 'lewis6991/gitsigns.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'kyazdani42/nvim-web-devicons'
   use {
-    'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
   }
-  use 'jacoborus/tender.vim'
+  use 'kyazdani42/nvim-web-devicons'
+  use 'hoob3rt/lualine.nvim'
   use 'windwp/nvim-autopairs'
+  use 'LnL7/vim-nix'
+  use 'dag/vim-fish'
+  use 'norcalli/nvim-colorizer.lua'
+  use "folke/twilight.nvim"
+  use 'nvim-lua/popup.nvim'
+  use 'mfussenegger/nvim-dap'
+  use 'alvarosevilla95/luatab.nvim'
+  use 'romgrk/barbar.nvim'
+  use 'yamatsum/nvim-cursorline'
 end)
