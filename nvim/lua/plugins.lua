@@ -1,39 +1,58 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-  vim.cmd 'packadd packer.nvim'
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
+local packer_bootstrap = ensure_packer()
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
 
-vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
-  use 'xiyaowong/nvim-transparent'
-  use 'lukas-reineke/indent-blankline.nvim'
-  use {
-      'nvim-treesitter/nvim-treesitter',
-       run = ':TSUpdate'
+return require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'
+    use 'nvim-treesitter/nvim-treesitter'
+    use 'morhetz/gruvbox'
+    use {'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+    use { "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+    use { 'neovim/nvim-lspconfig' }
+    use {
+  'VonHeikemen/lsp-zero.nvim',
+  branch = 'v2.x',
+  requires = {
+    -- LSP Support
+    {'neovim/nvim-lspconfig'},             -- Required
+    {'williamboman/mason.nvim'},           -- Optional
+    {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+    -- Autocompletion
+    {'hrsh7th/nvim-cmp'},     -- Required
+    {'hrsh7th/cmp-nvim-lsp'}, -- Required
+    {'L3MON4D3/LuaSnip'},     -- Required
   }
-  use 'neovim/nvim-lspconfig'
-  use 'onsails/lspkind-nvim'
-  use 'hrsh7th/nvim-compe'
-  use 'projekt0n/github-nvim-theme'
-  use 'lewis6991/gitsigns.nvim'
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use 'kyazdani42/nvim-web-devicons'
-  use 'hoob3rt/lualine.nvim'
-  use 'windwp/nvim-autopairs'
-  use 'LnL7/vim-nix'
-  use 'dag/vim-fish'
-  use 'norcalli/nvim-colorizer.lua'
-  use "folke/twilight.nvim"
-  use 'nvim-lua/popup.nvim'
-  use 'mfussenegger/nvim-dap'
-  use 'alvarosevilla95/luatab.nvim'
-  use 'romgrk/barbar.nvim'
-  use 'yamatsum/nvim-cursorline'
+}
+use 'ThePrimeagen/vim-be-good'
+use {
+  'nvim-telescope/telescope.nvim', tag = '0.1.2',
+-- or                            , branch = '0.1.x',
+  requires = { {'nvim-lua/plenary.nvim'} }
+}
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
+
